@@ -12,7 +12,7 @@ Easily setup fresh Game Servers with Scripts for maintenance and ease of use.
 wsl --install -d Ubuntu-22.04
 ```
 *This will install a Ubuntu Virtual Machine as a Windows App*
-<br>[More Info on Windows Linux Subsystem](https://learn.microsoft.com/en-us/windows/wsl/install)
+<br>[More Info on Windows Linux Subsystem](https://learn.microsoft.com/en-us/windows/wsl/)
 
 ### 2. Download and Run the Server Installer Script
 ```
