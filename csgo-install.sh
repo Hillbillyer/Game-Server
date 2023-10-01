@@ -74,6 +74,8 @@ su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.
 su - $username -c "./csgoserver auto-install"
 
 
+sleep 3s
+clear
 echo "
   █████████                                                        
  ███░░░░░███                                                       
@@ -92,6 +94,9 @@ echo "
  █████████ ███████████ ░░█████░░█████████████████░░██████░░████████
 ░░░░░░░░░ ░░░░░░░░░░░   ░░░░░  ░░░░░░░░░░░░░░░░░  ░░░░░░  ░░░░░░░░ 
 "
+sleep 3s
+clear
+
 
 echo "Script By: "
 echo "
@@ -109,4 +114,4 @@ echo "
 "
 echo "https://hillbillyer.net"
 echo "contact@hillbillyer.net"
-sleep 5s
+sleep 3s
