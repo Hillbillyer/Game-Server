@@ -4,7 +4,7 @@
 echo "Machine Updating..."
 sleep 3s
 clear
-sudo apt update -y && sudo apt upgrade -y
+sudo apt update -y && sudo apt upgrade -y && install net-tools -y
 sleep 3s
 clear
 
@@ -43,38 +43,38 @@ What server would you like to install?
 
     elif [ "$server" == "doi" ];
         then
-        server="./doiserver"
+        echo "Day of Infamy still under construction."
 
     elif [ "$server" == "fctr" ];
         then
-        server="./fctrserver"
+        echo "Factorio still under construction."
 
     elif [ "$server" == "gmod" ];
         then
-        server="./gmodserver"
+        echo "Gary's Mod still under construction."
+
+    elif [ "$server" == "inss" ];
+        then
+        echo "Insurgency: Sandstorm still under construction."
 
     elif [ "$server" == "l4d2" ];
         then
-        server="./l4d2server"
+        echo "Left 4 Dead 2 still under construction."
 
     elif [ "$server" == "minecraft" ];
         then
-        server="./mcserver"
+        echo "Minecraft still under construction."
 
     elif [ "$server" == "ns2" ];
         then
-        server="./ns2server"
-
-    elif [ "$server" == "sandstorm" ];
-        then
-        server="./inssserver"
+        echo "Natural Selection 2 still under construction."
 
     elif [ "$server" == "ts3" ];
         then
-        server="./ts3server"
+        echo "TeamSpeak still under construction."
 
     else
-        echo "No User matching Selection"
+        echo "No Server Matching Selection"
 
     fi
     \
