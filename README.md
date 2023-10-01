@@ -9,6 +9,7 @@ Easily setup fresh Game Servers with Scripts for maintenance and ease of use.
 <br> Install onto Bare Metal or as a Virtual Machine.
 ### 2. Download and Run the Server Installer Script
 ```
+sudo apt install git -y
 git clone https://github.com/Hillbillyer/Game-Server
 cd Game-Server
 chmod u+x server-installer.sh
