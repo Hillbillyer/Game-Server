@@ -1,11 +1,14 @@
 #!/bin/bash
 
 ##Machine Update
+echo "Machine Updating..."
+sleep 3s
+clear
 sudo apt update -y && sudo apt upgrade -y
 sleep 3s
+clear
 
 ##Server Selection
-clear
 read -p "
 What server would you like to install?
 -->csgo (CS:GO)
