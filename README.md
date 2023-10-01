@@ -13,8 +13,10 @@ wsl --install -d Ubuntu-22.04
 ```
 *This will install a Ubuntu Virtual Machine as a Windows App*
 <br>[More Info on Windows Linux Subsystem](https://learn.microsoft.com/en-us/windows/wsl/)
+<br> You will then have to reboot the computer. After rebooting, locate the Ubuntu 22.04 app in your start menu and run it. Go through the initial setup until it reads: "user@machine:~$"
 
 ### 2. Download and Run the Server Installer Script
+Now your machine should be ready to run the code.
 ```
 sudo apt install git -y
 git clone https://github.com/Hillbillyer/Game-Server
