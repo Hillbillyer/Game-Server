@@ -15,7 +15,7 @@ chmod u+x server-installer.sh
 sudo ./server-installer.sh
 ```
 Choose the Server you wish to install from the list and follow any prompts.
-*If you have any issues, feel free to submit an issue or shoot me an email.*
+<br>*If you have any issues, feel free to submit an issue or shoot me an email.*
 
 *https://hillbillyer.net*<br>
 *contact@hillbillyer.net*<br>
