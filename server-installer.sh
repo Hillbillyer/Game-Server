@@ -61,9 +61,23 @@ What server would you like to install?
         then
         echo "Left 4 Dead 2 still under construction."
 
-    elif [ "$server" == "minecraft" ];
+    elif [ "$server" == "mc" ];
         then
-        echo "Minecraft still under construction."
+        echo "Installing Dependencies"
+        sleep 3s
+        clear
+            sudo dpkg --add-architecture i386; sudo apt update -y; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat openjdk-17-jre -y
+        sleep 3s
+        clear
+        echo "Installing Minecraft Server"
+        sleep 3s
+        clear
+            username=mc
+            password=gameserver
+            sudo adduser --gecos "mc" --disabled-password $username
+            sudo chpasswd <<<"$username:$password"
+        su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh mcserver"
+        su - $username -c "./mcserver auto-install"
 
     elif [ "$server" == "ns2" ];
         then
