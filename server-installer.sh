@@ -44,7 +44,7 @@
             su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh csgoserver"
             su - $username -c "./csgoserver auto-install"
 
-#TODO: Add Day of Infamy Support.
+# Day of Infamy
     elif [ "$server" == "doi" ];
         then
         echo "Installing Dependencies"
