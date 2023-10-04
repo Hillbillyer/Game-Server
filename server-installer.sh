@@ -23,6 +23,7 @@ What server would you like to install?
 " server
 
 ##Server Installation
+#TODO: Add CS2 Support, CSGO Deprecated.
     if [ "$server" == "csgo" ];
         then
         echo "Installing Dependencies"
@@ -40,27 +41,27 @@ What server would you like to install?
             sudo chpasswd <<<"$username:$password"
             su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh csgoserver"
             su - $username -c "./csgoserver auto-install"
-
+#TODO: Add Day of Infamy Support.
     elif [ "$server" == "doi" ];
         then
         echo "Day of Infamy still under construction."
-
+#TODO: Add Factori Support.
     elif [ "$server" == "fctr" ];
         then
         echo "Factorio still under construction."
-
+#TODO: Add Gary's Mod Support.
     elif [ "$server" == "gmod" ];
         then
         echo "Gary's Mod still under construction."
-
+#TODO: Add Insurgency: Sandstorm Support.
     elif [ "$server" == "inss" ];
         then
         echo "Insurgency: Sandstorm still under construction."
-
+#TODO: Add Left 4 Dead 2 Support.
     elif [ "$server" == "l4d2" ];
         then
         echo "Left 4 Dead 2 still under construction."
-
+# Minecraft
     elif [ "$server" == "mc" ];
         then
         echo "Installing Dependencies"
@@ -78,17 +79,37 @@ What server would you like to install?
             sudo chpasswd <<<"$username:$password"
         su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh mcserver"
         su - $username -c "./mcserver auto-install"
-
+#TODO: Add Natural Selection 2 Support.
     elif [ "$server" == "ns2" ];
         then
         echo "Natural Selection 2 still under construction."
-
+#TODO: Add TeamSpeak Support.
     elif [ "$server" == "ts3" ];
         then
         echo "TeamSpeak still under construction."
-
+# No Server
     else
         echo "No Server Matching Selection"
 
     fi
     \
+
+#Feel free to remove this if you modify the script.
+echo "Script By: "
+echo "
+ █████   █████ ███ ████ ████ █████      ███ ████ ████                             
+░░███   ░░███ ░░░ ░░███░░███░░███      ░░░ ░░███░░███                             
+ ░███    ░███ ████ ░███ ░███ ░███████  ████ ░███ ░███ █████ ████ ██████  ████████ 
+ ░███████████░░███ ░███ ░███ ░███░░███░░███ ░███ ░███░░███ ░███ ███░░███░░███░░███
+ ░███░░░░░███ ░███ ░███ ░███ ░███ ░███ ░███ ░███ ░███ ░███ ░███░███████  ░███ ░░░ 
+ ░███    ░███ ░███ ░███ ░███ ░███ ░███ ░███ ░███ ░███ ░███ ░███░███░░░   ░███     
+ █████   ████████████████████████████  ███████████████░░███████░░██████  █████    
+░░░░░   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░  ░░░░░░░░░░░░░░░  ░░░░░███ ░░░░░░  ░░░░░     
+                                                       ███ ░███                   
+                                                      ░░██████                    
+                                                       ░░░░░░                     
+"
+echo "https://hillbillyer.net"
+echo "contact@hillbillyer.net"
+sleep 3s
+clear
