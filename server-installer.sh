@@ -73,7 +73,7 @@ What server would you like to install?
         sleep 3s
         clear
             username=mc
-            password=gameserver
+            read -p "Choose a Password for mc: " password
             sudo adduser --gecos "mc" --disabled-password $username
             sudo chpasswd <<<"$username:$password"
         su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh mcserver"
