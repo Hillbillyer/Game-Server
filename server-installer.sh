@@ -24,7 +24,8 @@
     " server
 
 ##Server Installation
-#TODO: Add CS2 Support, CSGO Deprecated.
+#TODO: 
+#       Add CS2 Support, CSGO Deprecated.
     if [ "$server" == "csgo" ];
         then
         echo "Installing Dependencies"
@@ -62,22 +63,26 @@
             su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh doiserver"
             su - $username -c "./doiserver auto-install"
 
-#TODO: Add Factori Support.
+#TODO: 
+#       Add Factori Support.
     elif [ "$server" == "fctr" ];
         then
         echo "Factorio still under construction."
 
-#TODO: Add Gary's Mod Support.
+#TODO: 
+#       Add Gary's Mod Support.
     elif [ "$server" == "gmod" ];
         then
         echo "Gary's Mod still under construction."
 
-#TODO: Add Insurgency: Sandstorm Support.
+#TODO: 
+#       Add Insurgency: Sandstorm Support.
     elif [ "$server" == "inss" ];
         then
         echo "Insurgency: Sandstorm still under construction."
 
-#TODO: Add Left 4 Dead 2 Support.
+#TODO: 
+#       Add Left 4 Dead 2 Support.
     elif [ "$server" == "l4d2" ];
         then
         echo "Left 4 Dead 2 still under construction."
@@ -101,12 +106,14 @@
         su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh mcserver"
         su - $username -c "./mcserver auto-install"
 
-#TODO: Add Natural Selection 2 Support.
+#TODO: 
+#       Add Natural Selection 2 Support.
     elif [ "$server" == "ns2" ];
         then
         echo "Natural Selection 2 still under construction."
 
-#TODO: Add TeamSpeak Support.
+#TODO: 
+#       Add TeamSpeak Support.
     elif [ "$server" == "ts3" ];
         then
         echo "TeamSpeak still under construction."
