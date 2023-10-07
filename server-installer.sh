@@ -62,12 +62,12 @@
         echo "Installing Factorio Server"
         sleep 3s
         clear
-        username=fctr
-        read -p "Choose a Password for fctr: " password
-        sudo adduser --gecos "fctr" --disabled-password $username
-        sudo chpasswd <<<"$username:$password"
-        su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh fctrserver"
-        su - $username -c "./fctrserver auto-install"
+            username=fctr
+            read -p "Choose a Password for fctr: " password
+            sudo adduser --gecos "fctr" --disabled-password $username
+            sudo chpasswd <<<"$username:$password"
+            su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh fctrserver"
+            su - $username -c "./fctrserver auto-install"
 
 # Garry's Mod
     elif [ "$server" == "gmod" ];
@@ -81,12 +81,12 @@
         echo "Installing Gary's Mod Server"
         sleep 3s
         clear
-        username=gmod
-        read -p "Choose a Password for gmod: " password
-        sudo adduser --gecos "gmod" --disabled-password $username
-        sudo chpasswd <<<"$username:$password"
-        su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh gmodserver"
-        su - $username -c "./gmodserver auto-install"
+            username=gmod
+            read -p "Choose a Password for gmod: " password
+            sudo adduser --gecos "gmod" --disabled-password $username
+            sudo chpasswd <<<"$username:$password"
+            su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh gmodserver"
+            su - $username -c "./gmodserver auto-install"
 
 # Insurgency: Sandstorm
     elif [ "$server" == "inss" ];
@@ -100,15 +100,14 @@
         echo "Installing Insurgency: Sandstorm Server"
         sleep 3s
         clear
-        username=sandstorm
-        read -p "Choose a Password for inss: " password
-        sudo adduser --gecos "inss" --disabled-password $username
-        sudo chpasswd <<<"$username:$password"
-        su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh inssserver"
-        su - $username -c "./inssserver auto-install"
+            username=sandstorm
+            read -p "Choose a Password for inss: " password
+            sudo adduser --gecos "inss" --disabled-password $username
+            sudo chpasswd <<<"$username:$password"
+            su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh inssserver"
+            su - $username -c "./inssserver auto-install"
 
-#TODO: 
-#       Add Left 4 Dead 2 Support.
+# Left 4 Dead 2
     elif [ "$server" == "l4d2" ];
         then
         echo "Installing Dependencies"
@@ -122,10 +121,10 @@
         clear
             username=l4d2
             read -p "Choose a Password for inss: " password
-        sudo adduser --gecos "l4d2" --disabled-password $username
-        sudo chpasswd <<<"$username:$password"
-        su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh l4d2server"
-        su - $username -c "./l4d2server auto-install"
+            sudo adduser --gecos "l4d2" --disabled-password $username
+            sudo chpasswd <<<"$username:$password"
+            su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh l4d2server"
+            su - $username -c "./l4d2server auto-install"
 
 # Minecraft
     elif [ "$server" == "mc" ];
@@ -143,8 +142,8 @@
             read -p "Choose a Password for mc: " password
             sudo adduser --gecos "mc" --disabled-password $username
             sudo chpasswd <<<"$username:$password"
-        su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh mcserver"
-        su - $username -c "./mcserver auto-install"
+            su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh mcserver"
+            su - $username -c "./mcserver auto-install"
 
 #TODO: 
 #       Add Natural Selection 2 Support.
