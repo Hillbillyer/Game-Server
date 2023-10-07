@@ -28,21 +28,7 @@
 #       Add CS2 Support, CSGO Deprecated.
     if [ "$server" == "csgo" ];
         then
-        echo "Installing Dependencies"
-        sleep 3s
-        clear
-            sudo dpkg --add-architecture i386; sudo apt update -y; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat lib32gcc-s1 lib32stdc++6 libsdl2-2.0-0:i386 steamcmd -y
-        sleep 3s
-        clear
-        echo "Installing CSGO Server"
-        sleep 3s
-        clear
-            username=csgo
-            read -p "Choose a Password for csgo: " password
-            sudo adduser --gecos "csgo" --disabled-password $username
-            sudo chpasswd <<<"$username:$password"
-            su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh csgoserver"
-            su - $username -c "./csgoserver auto-install"
+        echo "Awaiting CS2 Support"
 
 # Day of Infamy
     elif [ "$server" == "doi" ];
