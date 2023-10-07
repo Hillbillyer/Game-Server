@@ -82,8 +82,7 @@
         su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh fctrserver"
         su - $username -c "./fctrserver auto-install"
 
-#TODO: 
-#       Add Gary's Mod Support.
+# Garry's Mod
     elif [ "$server" == "gmod" ];
         then
         echo "Installing Dependencies"
