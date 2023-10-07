@@ -88,8 +88,7 @@
         su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh gmodserver"
         su - $username -c "./gmodserver auto-install"
 
-#TODO: 
-#       Add Insurgency: Sandstorm Support.
+# Insurgency: Sandstorm
     elif [ "$server" == "inss" ];
         then
         echo "Installing Dependencies"
