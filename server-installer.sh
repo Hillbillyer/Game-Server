@@ -67,7 +67,21 @@
 #       Add Factori Support.
     elif [ "$server" == "fctr" ];
         then
-        echo "Factorio still under construction."
+        echo "Installing Dependencies"
+        sleep 3s
+        clear
+            sudo dpkg --add-architecture i386; sudo apt update; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat lib32gcc-s1 lib32stdc++6 xz-utils
+        sleep 3s
+        clear
+        echo "Installing Factorio Server"
+        sleep 3s
+        clear
+        username=fctr
+        read -p "Choose a Password for fctr: " password
+        sudo adduser --gecos "fctr" --disabled-password $username
+        sudo chpasswd <<<"$username:$password"
+        su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh fctrserver"
+        su - $username -c "./fctrserver auto-install"
 
 #TODO: 
 #       Add Gary's Mod Support.
