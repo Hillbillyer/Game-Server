@@ -63,8 +63,7 @@
             su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh doiserver"
             su - $username -c "./doiserver auto-install"
 
-#TODO: 
-#       Add Factori Support.
+# Factorio
     elif [ "$server" == "fctr" ];
         then
         echo "Installing Dependencies"
