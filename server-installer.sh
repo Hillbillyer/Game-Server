@@ -102,7 +102,7 @@
         clear
         username=sandstorm
         read -p "Choose a Password for inss: " password
-        sudo adduser --gecos "sandstorm" --disabled-password $username
+        sudo adduser --gecos "inss" --disabled-password $username
         sudo chpasswd <<<"$username:$password"
         su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh inssserver"
         su - $username -c "./inssserver auto-install"
