@@ -86,7 +86,21 @@
 #       Add Gary's Mod Support.
     elif [ "$server" == "gmod" ];
         then
-        echo "Gary's Mod still under construction."
+        echo "Installing Dependencies"
+        sleep 3s
+        clear
+            sudo dpkg --add-architecture i386; sudo apt update; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat lib32gcc-s1 lib32stdc++6 libsdl2-2.0-0:i386 steamcmd libtinfo5:i386
+        sleep 3s
+        clear
+        echo "Installing Gary's Mod Server"
+        sleep 3s
+        clear
+        username=gmod
+        read -p "Choose a Password for gmod: " password
+        sudo adduser --gecos "gmod" --disabled-password $username
+        sudo chpasswd <<<"$username:$password"
+        su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh gmodserver"
+        su - $username -c "./gmodserver auto-install"
 
 #TODO: 
 #       Add Insurgency: Sandstorm Support.
