@@ -111,7 +111,21 @@
 #       Add Left 4 Dead 2 Support.
     elif [ "$server" == "l4d2" ];
         then
-        echo "Left 4 Dead 2 still under construction."
+        echo "Installing Dependencies"
+        sleep 3s
+        clear
+            sudo dpkg --add-architecture i386; sudo apt update; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat lib32gcc-s1 lib32stdc++6 libsdl2-2.0-0:i386 steamcmd -y
+        sleep 3s
+        clear
+        echo "Installing Left 4 Dead 2 Server"
+        sleep 3s
+        clear
+            username=l4d2
+            read -p "Choose a Password for inss: " password
+        sudo adduser --gecos "l4d2" --disabled-password $username
+        sudo chpasswd <<<"$username:$password"
+        su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh l4d2server"
+        su - $username -c "./l4d2server auto-install"
 
 # Minecraft
     elif [ "$server" == "mc" ];
