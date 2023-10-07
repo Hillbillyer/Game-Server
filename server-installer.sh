@@ -24,6 +24,7 @@
     " server
 
 ##Server Installation
+
 #TODO: 
 #       Add CS2 Support, CSGO Deprecated.
     if [ "$server" == "csgo" ];
@@ -91,7 +92,21 @@
 #       Add Insurgency: Sandstorm Support.
     elif [ "$server" == "inss" ];
         then
-        echo "Insurgency: Sandstorm still under construction."
+        echo "Installing Dependencies"
+        sleep 3s
+        clear
+            sudo dpkg --add-architecture i386; sudo apt update; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat lib32gcc-s1 lib32stdc++6 libsdl2-2.0-0:i386 steamcmd
+        sleep 3s
+        clear
+        echo "Installing Insurgency: Sandstorm Server"
+        sleep 3s
+        clear
+        username=sandstorm
+        read -p "Choose a Password for inss: " password
+        sudo adduser --gecos "sandstorm" --disabled-password $username
+        sudo chpasswd <<<"$username:$password"
+        su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh inssserver"
+        su - $username -c "./inssserver auto-install"
 
 #TODO: 
 #       Add Left 4 Dead 2 Support.
