@@ -164,7 +164,9 @@
             sudo chpasswd <<<"$username:$password"
             su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh ns2server"
             su - $username -c "./ns2server update-lgsm"
+            clear
             read -p "Enter your Steam Username: " steamusername
+            clear
             read -p "Enter your Steam Password: " steampassword
             echo -e "steamuser=$steamusername\nsteampass=$steampassword" >> /home/ns2/lgsm/config-lgsm/ns2server/common.cfg
             su - $username -c "./ns2server auto-install"
