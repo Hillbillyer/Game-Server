@@ -151,8 +151,7 @@
         then
         echo "Natural Selection 2 still under construction."
 
-#TODO: 
-#       Add TeamSpeak Support.
+# TeamSpeak
     elif [ "$server" == "ts3" ];
         then
         echo "Installing Dependencies"
