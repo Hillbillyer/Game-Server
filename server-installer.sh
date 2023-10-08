@@ -26,7 +26,7 @@
 ##Server Installation
 
 #TODO: 
-#       Add CS2 Support, CSGO Deprecated.
+#       Awaiting CS2 Support, CSGO Deprecated.
     if [ "$server" == "csgo" ];
         then
         echo "Awaiting CS2 Support"
