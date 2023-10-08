@@ -1,5 +1,4 @@
 # Game-Server
-THIS PROJECT IS PAUSED UNTIL CS2 COMMUNITY SERVERS ARE AVAILABLE.
 Easily setup fresh Game Servers with Scripts for maintenance and ease of use.
 
 ## How to use:
