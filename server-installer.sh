@@ -149,7 +149,25 @@
 #       Add Natural Selection 2 Support.
     elif [ "$server" == "ns2" ];
         then
-        echo "Natural Selection 2 still under construction."
+        echo "Installing Dependencies"
+        sleep 3s
+        clear
+            sudo dpkg --add-architecture i386; sudo apt update; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat lib32gcc-s1 lib32stdc++6 libsdl2-2.0-0:i386 steamcmd speex:i386 libtbb2
+        sleep 3s
+        clear
+        echo "Installing Natural Selection 2 Server"
+        sleep 3s
+        clear
+            username=ns2
+            read -p "Choose a Password for ns2: " password
+            sudo adduser --gecos "ns2" --disabled-password $username
+            sudo chpasswd <<<"$username:$password"
+            su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh ns2server"
+            su - $username -c "./ns2server update-lgsm"
+            read -p "Enter your Steam Username: " steamusername
+            read -p "Enter your Steam Password: " steampassword
+            echo -e "steamuser=$steamusername\nsteampass=$steampassword" >> /home/ns2/lgsm/config-lgsm/ns2server/common.cfg
+            su - $username -c "./ns2server auto-install"
 
 # TeamSpeak
     elif [ "$server" == "ts3" ];
@@ -157,7 +175,7 @@
         echo "Installing Dependencies"
         sleep 3s
         clear
-            
+            sudo dpkg --add-architecture i386; sudo apt update; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat lib32gcc-s1 lib32stdc++6 libmariadb3
         sleep 3s
         clear
         echo "Installing TeamSpeak Server"
