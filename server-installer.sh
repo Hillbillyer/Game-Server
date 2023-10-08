@@ -155,7 +155,21 @@
 #       Add TeamSpeak Support.
     elif [ "$server" == "ts3" ];
         then
-        echo "TeamSpeak still under construction."
+        echo "Installing Dependencies"
+        sleep 3s
+        clear
+            
+        sleep 3s
+        clear
+        echo "Installing TeamSpeak Server"
+        sleep 3s
+        clear
+            username=ts3
+            read -p "Choose a Password for ts3: " password
+            sudo adduser --gecos "ts3" --disabled-password $username
+            sudo chpasswd <<<"$username:$password"
+            su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh ts3server"
+            su - $username -c "./ts3server auto-install"
 
 # No Server
     else
