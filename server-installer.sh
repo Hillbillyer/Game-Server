@@ -145,8 +145,7 @@
             su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh mcserver"
             su - $username -c "./mcserver auto-install"
 
-#TODO: 
-#       Add Natural Selection 2 Support.
+# Natural Selection 2
     elif [ "$server" == "ns2" ];
         then
         echo "Installing Dependencies"
