@@ -12,7 +12,7 @@
 
     read -p "
     What server would you like to install?
-    -->csgo (CS:GO)
+    -->cs2 (Counter-Strike 2)
     -->doi (Day of Infamy)
     -->fctr (Factorio)
     -->gmod (Garry's Mod)
@@ -25,11 +25,30 @@
 
 ##Server Installation
 
-#TODO: 
 #       Awaiting CS2 Support, CSGO Deprecated.
-    if [ "$server" == "csgo" ];
+    if [ "$server" == "cs2" ];
         then
-        echo "Awaiting CS2 Support"
+        echo "Installing Dependencies"
+        sleep 3s
+        clear
+            sudo dpkg --add-architecture i386; sudo apt update; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat lib32gcc-s1 lib32stdc++6 libsdl2-2.0-0:i386 steamcmd
+        sleep 3s
+        clear
+        echo "Counter-Strike 2"
+        sleep 3s
+        clear
+            username=cs2
+            read -p "Choose a Password for cs2: " password
+            sudo adduser --gecos "cs2" --disabled-password $username
+            sudo chpasswd <<<"$username:$password"
+            su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh cs2server"
+            su - $username -c "./cs2server update-lgsm"
+            clear
+            read -p "Enter your Steam Username: " steamusername
+            clear
+            read -p "Enter your Steam Password: " steampassword
+            echo -e "steamuser=$steamusername\nsteampass=$steampassword" >> /home/cs2/lgsm/config-lgsm/cs2server/common.cfg
+            su - $username -c "./cs2server auto-install"
 
 # Day of Infamy
     elif [ "$server" == "doi" ];
