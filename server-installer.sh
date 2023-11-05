@@ -25,7 +25,7 @@
 
 ##Server Installation
 
-#       Awaiting CS2 Support, CSGO Deprecated.
+# Counter-Strike 2
     if [ "$server" == "cs2" ];
         then
         echo "Installing Dependencies"
@@ -42,12 +42,6 @@
             sudo adduser --gecos "cs2" --disabled-password $username
             sudo chpasswd <<<"$username:$password"
             su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh cs2server"
-            su - $username -c "./cs2server update-lgsm"
-            clear
-            read -p "Enter your Steam Username: " steamusername
-            clear
-            read -p "Enter your Steam Password: " steampassword
-            echo -e "steamuser=$steamusername\nsteampass=$steampassword" >> /home/cs2/lgsm/config-lgsm/cs2server/common.cfg
             su - $username -c "./cs2server auto-install"
 
 # Day of Infamy
