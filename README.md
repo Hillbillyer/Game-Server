@@ -24,9 +24,8 @@ Now your machine should be ready to run the code.
 ```
 sudo apt install git -y
 git clone https://github.com/Hillbillyer/Game-Server
-cd Game-Server
-chmod u+x server-installer.sh
-sudo ./server-installer.sh
+chmod u+x /Game-Server/server-installer.sh
+sudo ./Game-Server/server-installer.sh
 ```
 <br>Choose the Server you wish to install from the list and follow any prompts. 
 
