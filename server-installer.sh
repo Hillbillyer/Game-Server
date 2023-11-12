@@ -27,22 +27,22 @@
 
 # Counter-Strike 2
     if [ "$server" == "cs2" ];
-        then
-        echo "Installing Dependencies"
+    then
+    echo "Installing Dependencies"
         sleep 3s
         clear
-            sudo dpkg --add-architecture i386; sudo apt update; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat lib32gcc-s1 lib32stdc++6 libsdl2-2.0-0:i386 steamcmd
+        sudo dpkg --add-architecture i386; sudo apt update; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat lib32gcc-s1 lib32stdc++6 libsdl2-2.0-0:i386 steamcmd
         sleep 3s
         clear
-        echo "Counter-Strike 2"
+    echo "Installing Counter-Strike 2"
         sleep 3s
         clear
-            username=cs2
-            read -p "Choose a Password for cs2: " password
-            sudo adduser --gecos "cs2" --disabled-password $username
-            sudo chpasswd <<<"$username:$password"
-            su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh cs2server"
-            su - $username -c "./cs2server auto-install"
+        username=cs2
+        read -p "Choose a Password for cs2: " password
+        sudo adduser --gecos "cs2" --disabled-password $username
+        sudo chpasswd <<<"$username:$password"
+        su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh cs2server"
+        su - $username -c "./cs2server auto-install"
 
 # Day of Infamy
     elif [ "$server" == "doi" ];
