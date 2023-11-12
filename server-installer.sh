@@ -1,12 +1,11 @@
 #!/bin/bash
 
-##Machine Update
-    echo "Machine Updating..."
-    sleep 3s
-    clear
-    sudo apt update -y && sudo apt upgrade -y && install net-tools -y
-    sleep 3s
-    clear
+#Machine Updates
+clear
+echo "--==Machine Updating==--"
+sleep 3s
+sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt autoremove -y
+clear
 
 ##Server Selection
 
@@ -24,7 +23,7 @@
     " server
 
 ##Server Installation
-
+# FIXME - Fix Code Branch Formatting
 # Counter-Strike 2
     if [ "$server" == "cs2" ];
     then
