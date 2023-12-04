@@ -11,7 +11,7 @@ declare -A server_info
 while IFS="," read -r shortname gameservername gamename os; do 
     servers+=("$gamename")
     server_info["$gamename"]=$shortname
-done < <(tail -n +2 Game-Server/lgsm/serverlist.csv)
+done < <(tail -n +2 Game-Server/serverlist.csv)
 
 ## Creates an Interactable List for Selecting the Game Server to Install
 exit_script=false
@@ -35,12 +35,12 @@ while [ "$exit_script" != true ]; do
                 echo "Installing Dependencies"
                 sleep 3s
                 # Pulls list of Dependencies from LinuxGSM Github Repository (https://github.com/GameServerManagers/LinuxGSM)
-                wget -O Game-Server/lgsm/dependencies.csv https://raw.githubusercontent.com/GameServerManagers/LinuxGSM/master/lgsm/data/ubuntu-22.04.csv
+                wget -O Game-Server/dependencies.csv https://raw.githubusercontent.com/GameServerManagers/LinuxGSM/master/lgsm/data/ubuntu-22.04.csv
                 sudo dpkg --add-architecture i386
                 sudo apt update
                 clear
                 # Use awk to remove the first field from each line and store it in a variable
-                result=$(awk -F',' '{ for(i=2;i<=NF;++i) printf "%s ", $i; print "" }' Game-Server/lgsm/dependencies.csv)
+                result=$(awk -F',' '{ for(i=2;i<=NF;++i) printf "%s ", $i; print "" }' Game-Server/dependencies.csv)
                 # Replace newlines with spaces
                 result=$(echo "$result" | tr -d '\n')
                 # Trim trailing space
