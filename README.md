@@ -3,7 +3,7 @@ Easily setup fresh Game Servers with Scripts for maintenance and ease of use.
 
 ## How to use:
 
-### 1.1. Linux Install
+### 1.1. Ubuntu 22.04 Install
 - [Ubuntu 22.04](https://releases.ubuntu.com/22.04.3/ubuntu-22.04.3-desktop-amd64.iso) *Official Source*
 - [Ubuntu Server 22.04](https://releases.ubuntu.com/22.04.3/ubuntu-22.04.3-live-server-amd64.iso) *Official Source*
 <br> *Install onto Bare Metal or as a Virtual Machine.*
@@ -11,6 +11,9 @@ Easily setup fresh Game Servers with Scripts for maintenance and ease of use.
 ### 1.2. Windows Install
 To Install on Windows, open Command Prompt and run:
 ```
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
 wsl --install -d Ubuntu-22.04
 ```
 *This will install a Ubuntu Virtual Machine as a Windows App*
