@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 ## Pulls list of currently available servers from LinuxGSM Github Repository (https://github.com/GameServerManagers/LinuxGSM)
 wget -O hills-scripts/lgsm/serverlist.csv https://raw.githubusercontent.com/GameServerManagers/LinuxGSM/master/lgsm/data/serverlist.csv
