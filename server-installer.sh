@@ -1,214 +1,169 @@
-#!/bin/bash
+#! /bin/bash
 
-#Machine Updates
-clear
-echo "--==Machine Updating==--"
-sleep 3s
-sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt autoremove -y
+## Pulls list of currently available servers from LinuxGSM Github Repository (https://github.com/GameServerManagers/LinuxGSM)
+wget -O hills-scripts/lgsm/serverlist.csv https://raw.githubusercontent.com/GameServerManagers/LinuxGSM/master/lgsm/data/serverlist.csv
 clear
 
-##Server Selection
+## Creates Array to Store the Shortname and Gamename from the Server List
+servers=()
+declare -A server_info
 
-    read -p "
-    What server would you like to install?
-    -->cs2 (Counter-Strike 2)
-    -->doi (Day of Infamy)
-    -->fctr (Factorio)
-    -->gmod (Garry's Mod)
-    -->inss (Insurgency:Sandstorm)
-    -->l4d2 (Left 4 Dead 2)
-    -->mc (Minecraft)
-    -->ns2 (Natural Selection 2)
-    -->ts3 (TeamSpeak)
-    " server
+while IFS="," read -r shortname gameservername gamename os; do 
+    servers+=("$gamename")
+    server_info["$gamename"]=$shortname
+done < <(tail -n +2 hills-scripts/lgsm/serverlist.csv)
 
-##Server Installation
-# FIXME - Fix Code Branch Formatting
-# Counter-Strike 2
-    if [ "$server" == "cs2" ];
-    then
-    echo "Installing Dependencies"
-        sleep 3s
-        clear
-        sudo dpkg --add-architecture i386; sudo apt update; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat lib32gcc-s1 lib32stdc++6 libsdl2-2.0-0:i386 steamcmd
-        sleep 3s
-        clear
-    echo "Installing Counter-Strike 2"
-        sleep 3s
-        clear
-        username=cs2
-        read -p "Choose a Password for cs2: " password
-        sudo adduser --gecos "cs2" --disabled-password $username
-        sudo chpasswd <<<"$username:$password"
-        su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh cs2server"
-        su - $username -c "./cs2server auto-install"
+## Creates an Interactable List for Selecting the Game Server to Install
+exit_script=false
 
-# Day of Infamy
-    elif [ "$server" == "doi" ];
-        then
-        echo "Installing Dependencies"
-        sleep 3s
-        clear
-            sudo dpkg --add-architecture i386; sudo apt update; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat lib32gcc-s1 lib32stdc++6 libsdl2-2.0-0:i386 steamcmd -y
-        sleep 3s
-        clear
-        echo "Installing Day of Infamy Server"
-        sleep 3s
-        clear
-            username=doi
-            read -p "Choose a Password for doi: " password
-            sudo adduser --gecos "doi" --disabled-password $username
-            sudo chpasswd <<<"$username:$password"
-            su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh doiserver"
-            su - $username -c "./doiserver auto-install"
+while [ "$exit_script" != true ]; do
+    PS3='Press Ctl+C when you are finished... 
+    Please enter your choice: '
+    select opt in "${servers[@]}" "quit";
+    do
+        case $opt in 
+            "quit")
+                echo "Exiting the script."
+                exit_script=true
+                break
+                ;;
+            *)
+                clear
+                echo "$opt <-- Selected"
 
-# Factorio
-    elif [ "$server" == "fctr" ];
-        then
-        echo "Installing Dependencies"
-        sleep 3s
-        clear
-            sudo dpkg --add-architecture i386; sudo apt update; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat lib32gcc-s1 lib32stdc++6 xz-utils -y
-        sleep 3s
-        clear
-        echo "Installing Factorio Server"
-        sleep 3s
-        clear
-            username=fctr
-            read -p "Choose a Password for fctr: " password
-            sudo adduser --gecos "fctr" --disabled-password $username
-            sudo chpasswd <<<"$username:$password"
-            su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh fctrserver"
-            su - $username -c "./fctrserver auto-install"
+## Installs All Dependencies Required for All LinuxGSM Servers
+                echo "Installing Dependencies"
+                sleep 3s
+                # Pulls list of Dependencies from LinuxGSM Github Repository (https://github.com/GameServerManagers/LinuxGSM)
+                wget -O hills-scripts/lgsm/dependencies.csv https://raw.githubusercontent.com/GameServerManagers/LinuxGSM/master/lgsm/data/ubuntu-22.04.csv
+                sudo dpkg --add-architecture i386
+                sudo apt update
+                clear
+                # Use awk to remove the first field from each line and store it in a variable
+                result=$(awk -F',' '{ for(i=2;i<=NF;++i) printf "%s ", $i; print "" }' hills-scripts/lgsm/dependencies.csv)
+                # Replace newlines with spaces
+                result=$(echo "$result" | tr -d '\n')
+                # Trim trailing space
+                result="${result%" "}"
+                # Print the final result
+                echo "Resulting variable: $result"
+                # Create an array from the space-separated string
+                IFS=' ' read -ra packages <<< "$result"
+                # Install packages individually, ignoring errors
+                for package in "${packages[@]}"; do
+                    sudo apt install -y "$package" 2>/dev/null
+                done
+                echo "Dependencies Updated"
+                sleep 3s
+                clear
 
-# Garry's Mod
-    elif [ "$server" == "gmod" ];
-        then
-        echo "Installing Dependencies"
-        sleep 3s
-        clear
-            sudo dpkg --add-architecture i386; sudo apt update; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat lib32gcc-s1 lib32stdc++6 libsdl2-2.0-0:i386 steamcmd libtinfo5:i386 -y
-        sleep 3s
-        clear
-        echo "Installing Gary's Mod Server"
-        sleep 3s
-        clear
-            username=gmod
-            read -p "Choose a Password for gmod: " password
-            sudo adduser --gecos "gmod" --disabled-password $username
-            sudo chpasswd <<<"$username:$password"
-            su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh gmodserver"
-            su - $username -c "./gmodserver auto-install"
+## Begins the Process for Installing the Desired Game Server
+                echo "Installing '$opt'"
+                sleep 3s
+                clear
+                ## Turns Shortname into Username
+                username="${server_info["$opt"]}"
+                
+                ## Loop for Verifying that Created Password is correct
+                while true; do
+                    read -s -p "Choose a Password for '$username': " password
+                    echo
+                    
+                    read -s -p "Confirm Password: " password_confirm
+                    echo
+                    
+                    if [ "$password" == "$password_confirm" ]; then
+                        break
+                    else
+                        echo "Passwords do not match. Please try again."
+                    fi
+                done
+                
+                ## Creates account with username and specified password
+                sudo adduser --gecos "'$username'" --disabled-password "$username"
+                sudo chpasswd <<<"$username:$password"
+                su - "$username" -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh '$username'server"
+                su - "$username" -c "./'$username'server update-lgsm"
+                clear
+                ## Steam Server Authentication Section for Servers that Require Steam Authentication
+                echo "PLEASE READ CAREFULLY"
+                echo
+                echo "Some Game Servers require Steam Authentication.
+                
+                "
+                echo "If you know this one doesn't, simply press enter when prompted to enter Steam Credentials."
+                echo "If this server requires authentication, type in your steam user and pass when prompted.
+                
+                "
+                echo "When the Game Server is installing, you will need to enter your Steam Guard Code when the installation says:"
+                echo ""Installing "$opt" Server""
+                echo "Type your Steam Guard Code and press ENTER when you see this happening."
+                echo "--sometimes putting it in twice gets it working, don't be afraid--"
+                echo "
+                
+                MORE INFO:
+                Go to https://linuxgsm.com/servers/"$username"server/
+                
+                "
 
-# Insurgency: Sandstorm
-    elif [ "$server" == "inss" ];
-        then
-        echo "Installing Dependencies"
-        sleep 3s
-        clear
-            sudo dpkg --add-architecture i386; sudo apt update; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat lib32gcc-s1 lib32stdc++6 libsdl2-2.0-0:i386 steamcmd -y
-        sleep 3s
-        clear
-        echo "Installing Insurgency: Sandstorm Server"
-        sleep 3s
-        clear
-            username=sandstorm
-            read -p "Choose a Password for inss: " password
-            sudo adduser --gecos "inss" --disabled-password $username
-            sudo chpasswd <<<"$username:$password"
-            su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh inssserver"
-            su - $username -c "./inssserver auto-install"
+                while true; do
+                    read -p "Do you understand how it works? (yes/no/quit): " user_input
 
-# Left 4 Dead 2
-    elif [ "$server" == "l4d2" ];
-        then
-        echo "Installing Dependencies"
-        sleep 3s
-        clear
-            sudo dpkg --add-architecture i386; sudo apt update; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat lib32gcc-s1 lib32stdc++6 libsdl2-2.0-0:i386 steamcmd -y
-        sleep 3s
-        clear
-        echo "Installing Left 4 Dead 2 Server"
-        sleep 3s
-        clear
-            username=l4d2
-            read -p "Choose a Password for inss: " password
-            sudo adduser --gecos "l4d2" --disabled-password $username
-            sudo chpasswd <<<"$username:$password"
-            su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh l4d2server"
-            su - $username -c "./l4d2server auto-install"
+                    # Convert user_input to lowercase for case-insensitive comparison
+                    user_input_lower=$(echo "$user_input" | tr '[:upper:]' '[:lower:]')
 
-# Minecraft
-    elif [ "$server" == "mc" ];
-        then
-        echo "Installing Dependencies"
-        sleep 3s
-        clear
-            sudo dpkg --add-architecture i386; sudo apt update -y; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat openjdk-17-jre -y
-        sleep 3s
-        clear
-        echo "Installing Minecraft Server"
-        sleep 3s
-        clear
-            username=mc
-            read -p "Choose a Password for mc: " password
-            sudo adduser --gecos "mc" --disabled-password $username
-            sudo chpasswd <<<"$username:$password"
-            su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh mcserver"
-            su - $username -c "./mcserver auto-install"
+                    if [ "$user_input_lower" == "yes" ]; then
+                        echo "Goodluck!"
+                        
+                        break
+                    elif [ "$user_input_lower" == "quit" ]; then
+                        echo "Exiting the script."
+                        exit
+                    else
+                        echo "Try going to the MORE INFO link."
+                    fi
+                done
+                sleep 2s
+                clear
+                read -p "Enter your Steam Username: " steamusername
+                clear
+                ## Loop for Verifying that Password is correct
+                while true; do
+                    read -s -p "Enter your Steam Password: " steampassword
+                    echo # Print a newline after Steam password input
+                    
+                    read -s -p "Confirm Steam Password: " steampassword_confirm
+                    echo # Print a newline after Steam password confirmation
+                    
+                    if [ "$steampassword" == "$steampassword_confirm" ]; then
+                        break
+                    else
+                        echo "Steam Passwords do not match. Please try again."
+                    fi
+                done
+                
+                ## Installs LinuxGSM Configuration Files
+                echo -e "steamuser=$steamusername\nsteampass=$steampassword" >> "/home/$username/lgsm/config-lgsm/"$username"server/common.cfg"
+                ## Installs the Desired LinuxGSM Server
+                su - "$username" -c "./'$username'server auto-install"
 
-# Natural Selection 2
-    elif [ "$server" == "ns2" ];
-        then
-        echo "Installing Dependencies"
-        sleep 3s
-        clear
-            sudo dpkg --add-architecture i386; sudo apt update; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat lib32gcc-s1 lib32stdc++6 libsdl2-2.0-0:i386 steamcmd speex:i386 libtbb2 -y
-        sleep 3s
-        clear
-        echo "Installing Natural Selection 2 Server"
-        sleep 3s
-        clear
-            username=ns2
-            read -p "Choose a Password for ns2: " password
-            sudo adduser --gecos "ns2" --disabled-password $username
-            sudo chpasswd <<<"$username:$password"
-            su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh ns2server"
-            su - $username -c "./ns2server update-lgsm"
-            clear
-            read -p "Enter your Steam Username: " steamusername
-            clear
-            read -p "Enter your Steam Password: " steampassword
-            echo -e "steamuser=$steamusername\nsteampass=$steampassword" >> /home/ns2/lgsm/config-lgsm/ns2server/common.cfg
-            su - $username -c "./ns2server auto-install"
+                ## Update and Clean the System
+                # Update package lists
+                sudo apt update
+                # Upgrade installed packages
+                sudo apt upgrade -y
+                # Upgrade the distribution (including the OS)
+                sudo apt dist-upgrade -y
+                # Remove unnecessary files
+                sudo apt autoremove -y
+                sudo apt clean
+                break
+                ;;
+        esac
+    done
+done
 
-# TeamSpeak
-    elif [ "$server" == "ts3" ];
-        then
-        echo "Installing Dependencies"
-        sleep 3s
-        clear
-            sudo dpkg --add-architecture i386; sudo apt update; sudo apt install curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates binutils bc jq tmux netcat lib32gcc-s1 lib32stdc++6 libmariadb3 -y
-        sleep 3s
-        clear
-        echo "Installing TeamSpeak Server"
-        sleep 3s
-        clear
-            username=ts3
-            read -p "Choose a Password for ts3: " password
-            sudo adduser --gecos "ts3" --disabled-password $username
-            sudo chpasswd <<<"$username:$password"
-            su - $username -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh ts3server"
-            su - $username -c "./ts3server auto-install"
-
-# No Server
-    else
-        echo "No Server Matching Selection"
-
-    fi
-    \
-
-#Feel free to remove this if you modify the script.
+#Feel free to remove this if you edit the script.
 echo "Script By: "
 echo "
  █████   █████ ███ ████ ████ █████      ███ ████ ████                             
@@ -225,3 +180,11 @@ echo "
 "
 echo "https://hillbillyer.net"
 echo "contact@hillbillyer.net"
+sleep 3s
+clear
+
+echo "Reboot Recommended
+    Rebooting in 5s...
+    Press Ctl+C to Cancel"
+sleep 5s
+sudo reboot
