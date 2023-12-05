@@ -137,7 +137,7 @@ while [ "$exit_script" != true ]; do
                 IFS=' ' read -ra packages <<< "$result"
                 # Install packages individually, ignoring errors
                 for package in "${packages[@]}"; do
-                    sudo apt install -y "$package" 2>/dev/null
+                    sudo NEEDRESTART_MODE=a apt install -y "$package" 2>/dev/null
                 done
                 echo "Dependencies Updated"
                 sleep 3s
