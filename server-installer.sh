@@ -83,6 +83,7 @@ while [ "$exit_script" != true ]; do
                 sudo adduser --gecos "'$username'" --disabled-password "$username"
                 sudo chpasswd <<<"$username:$password"
                 su - "$username" -c "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh '$username'server"
+                ## Installs LinuxGSM Configuration Files
                 su - "$username" -c "./'$username'server update-lgsm"
                 clear
                 ## Steam Server Authentication Section for Servers that Require Steam Authentication
@@ -142,7 +143,9 @@ while [ "$exit_script" != true ]; do
                     fi
                 done
                 
-                ## Installs LinuxGSM Configuration Files
+
+
+                ## Adds Steam Credentials to LinuxGSM Configuration Files in PLAIN TEXT
                 echo -e "steamuser=$steamusername\nsteampass=$steampassword" >> "/home/$username/lgsm/config-lgsm/"$username"server/common.cfg"
                 ## Installs the Desired LinuxGSM Server
                 su - "$username" -c "./'$username'server auto-install"
