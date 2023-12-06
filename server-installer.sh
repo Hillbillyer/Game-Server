@@ -31,32 +31,6 @@ while [ "$exit_script" != true ]; do
                 clear
                 echo "$opt <-- Selected"
 
-## Installs All Dependencies Required for All LinuxGSM Servers
-                echo "Installing Dependencies"
-                sleep 3s
-                # Pulls list of Dependencies from LinuxGSM Github Repository (https://github.com/GameServerManagers/LinuxGSM)
-                wget -O Game-Server/dependencies.csv https://raw.githubusercontent.com/GameServerManagers/LinuxGSM/master/lgsm/data/ubuntu-22.04.csv
-                sudo dpkg --add-architecture i386
-                sudo apt update
-                clear
-                # Use awk to remove the first field from each line and store it in a variable
-                result=$(awk -F',' '{ for(i=2;i<=NF;++i) printf "%s ", $i; print "" }' Game-Server/dependencies.csv)
-                # Replace newlines with spaces
-                result=$(echo "$result" | tr -d '\n')
-                # Trim trailing space
-                result="${result%" "}"
-                # Print the final result
-                echo "Resulting variable: $result"
-                # Create an array from the space-separated string
-                IFS=' ' read -ra packages <<< "$result"
-                # Install packages individually, ignoring errors
-                for package in "${packages[@]}"; do
-                    sudo apt install -y "$package" 2>/dev/null
-                done
-                echo "Dependencies Updated"
-                sleep 3s
-                clear
-
 ## Begins the Process for Installing the Desired Game Server
                 echo "Installing '$opt'"
                 sleep 3s
@@ -144,8 +118,33 @@ while [ "$exit_script" != true ]; do
                 done
                 
 
+## Installs All Dependencies Required for All LinuxGSM Servers
+                echo "Installing Dependencies"
+                sleep 3s
+                # Pulls list of Dependencies from LinuxGSM Github Repository (https://github.com/GameServerManagers/LinuxGSM)
+                wget -O Game-Server/dependencies.csv https://raw.githubusercontent.com/GameServerManagers/LinuxGSM/master/lgsm/data/ubuntu-22.04.csv
+                sudo dpkg --add-architecture i386
+                sudo apt update
+                clear
+                # Use awk to remove the first field from each line and store it in a variable
+                result=$(awk -F',' '{ for(i=2;i<=NF;++i) printf "%s ", $i; print "" }' Game-Server/dependencies.csv)
+                # Replace newlines with spaces
+                result=$(echo "$result" | tr -d '\n')
+                # Trim trailing space
+                result="${result%" "}"
+                # Print the final result
+                echo "Resulting variable: $result"
+                # Create an array from the space-separated string
+                IFS=' ' read -ra packages <<< "$result"
+                # Install packages individually, ignoring errors
+                for package in "${packages[@]}"; do
+                    sudo NEEDRESTART_MODE=a apt install -y "$package" 2>/dev/null
+                done
+                echo "Dependencies Updated"
+                sleep 3s
+                clear
 
-                ## Adds Steam Credentials to LinuxGSM Configuration Files in PLAIN TEXT
+                ## Installs LinuxGSM Configuration Files
                 echo -e "steamuser=$steamusername\nsteampass=$steampassword" >> "/home/$username/lgsm/config-lgsm/"$username"server/common.cfg"
                 ## Installs the Desired LinuxGSM Server
                 su - "$username" -c "./'$username'server auto-install"
